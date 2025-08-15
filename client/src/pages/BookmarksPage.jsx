@@ -14,7 +14,7 @@ const BookmarksPage = () => {
       console.log("Fetching bookmarked ideas...");
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        const { data } = await axios.get('http://localhost:5001/api/ideas/mybookmarks', config);
+        const { data } = await axios.get('${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks', config);
         setBookmarks(data);
         console.log("Successfully fetched bookmarks:", data);
       } catch (err) {
@@ -35,7 +35,7 @@ const BookmarksPage = () => {
     try {
       const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
       // The same toggle endpoint works for removing
-      await axios.put(`http://localhost:5001/api/ideas/${idToRemove}/bookmark`, null, config);
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/ideas/${idToRemove}/bookmark`, null, config);
       
       console.log("API call successful. Filtering UI.");
       

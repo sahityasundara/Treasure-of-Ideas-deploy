@@ -52,7 +52,7 @@ const IdeasPage = () => {
         }
         params.append('page', page);
 
-        const { data } = await axios.get(`http://localhost:5001/api/ideas?${params.toString()}`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}${params.toString()}`);
 
         if (data && Array.isArray(data.ideas)) {
           // If it's a new search (page 1), replace all ideas. Otherwise, append the new ones.
@@ -90,7 +90,7 @@ const IdeasPage = () => {
     if (!userInfo) return;
     try {
       const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-      const { data: updatedIdea } = await axios.put(`http://localhost:5001/api/ideas/${idToBookmark}/bookmark`, null, config);
+      const { data: updatedIdea } = await axios.put(`${import.meta.env.VITE_API_URL}/api/ideas/${idToBookmark}/bookmark`, null, config);
       setIdeas(ideas.map(idea => idea._id === updatedIdea._id ? updatedIdea : idea));
     } catch (err) {
       setError('Failed to update bookmark.');
@@ -104,7 +104,7 @@ const IdeasPage = () => {
       if (!userInfo) return;
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        await axios.delete(`http://localhost:5001/api/ideas/${idToDelete}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/ideas/${idToDelete}`, config);
         setIdeas(ideas.filter((idea) => idea._id !== idToDelete));
         setExpandedCardId(null); // Close the card if it was expanded
       } catch (err) {

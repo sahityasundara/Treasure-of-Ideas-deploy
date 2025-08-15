@@ -18,7 +18,7 @@ const UserProfilePage = () => {
       setLoading(true);
       setError('');
       try {
-        const { data } = await axios.get(`http://localhost:5001/api/users/${userId}/ideas`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}/ideas`);
         setUserIdeas(data);
 
         // If the user has posted ideas, get their name from the first idea.
@@ -46,7 +46,7 @@ const UserProfilePage = () => {
     if (!currentUserInfo) return;
     try {
       const config = { headers: { Authorization: `Bearer ${currentUserInfo.token}` } };
-      const { data: updatedIdea } = await axios.put(`http://localhost:5001/api/ideas/${idToBookmark}/bookmark`, null, config);
+      const { data: updatedIdea } = await axios.put(`${import.meta.env.VITE_API_URL}/api/ideas/${idToBookmark}/bookmark`, null, config);
       setUserIdeas(userIdeas.map(idea => idea._id === updatedIdea._id ? updatedIdea : idea));
     } catch (err) {
       console.error('Bookmark error on profile page:', err);
@@ -58,7 +58,7 @@ const UserProfilePage = () => {
       if (!currentUserInfo) return;
       try {
         const config = { headers: { Authorization: `Bearer ${currentUserInfo.token}` } };
-        await axios.delete(`http://localhost:5001/api/ideas/${idToDelete}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/ideas/${idToDelete}`, config);
         setUserIdeas(userIdeas.filter((idea) => idea._id !== idToDelete));
       } catch (err) {
         console.error('Delete error on profile page:', err);

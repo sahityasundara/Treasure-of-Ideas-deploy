@@ -25,7 +25,7 @@ const LoginPage = () => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
       const { data } = await axios.post(
-        'http://localhost:5001/api/users/login',
+        '${import.meta.env.VITE_API_URL}/api/users/login',
         { email, password },
         config
       );

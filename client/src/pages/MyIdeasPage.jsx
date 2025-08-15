@@ -22,7 +22,7 @@ const MyIdeasPage = () => {
       setLoading(true);
       try {
         // Use the logged-in user's ID to fetch their ideas
-        const { data } = await axios.get(`http://localhost:5001/api/users/${userInfo._id}/ideas`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userInfo._id}/ideas`);
         setMyIdeas(data);
       } catch (err) {
         setError('Failed to fetch your ideas.');
@@ -38,7 +38,7 @@ const MyIdeasPage = () => {
   const handleBookmark = async (idToBookmark) => {
     try {
       const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-      const { data: updatedIdea } = await axios.put(`http://localhost:5001/api/ideas/${idToBookmark}/bookmark`, null, config);
+      const { data: updatedIdea } = await axios.put(`${import.meta.env.VITE_API_URL}/api/ideas/${idToBookmark}/bookmark`, null, config);
       setMyIdeas(myIdeas.map(idea => idea._id === updatedIdea._id ? updatedIdea : idea));
     } catch (err) { console.error('Bookmark error:', err); }
   };
@@ -47,7 +47,7 @@ const MyIdeasPage = () => {
     if (window.confirm("Are you sure you want to permanently delete this idea?")) {
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        await axios.delete(`http://localhost:5001/api/ideas/${idToDelete}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/ideas/${idToDelete}`, config);
         setMyIdeas(myIdeas.filter((idea) => idea._id !== idToDelete));
       } catch (err) { console.error('Delete error:', err); }
     }
