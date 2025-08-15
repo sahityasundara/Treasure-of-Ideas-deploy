@@ -66,7 +66,16 @@ const UserProfilePage = () => {
     }
   };
 
-  if (loading) return <p style={{ textAlign: 'center' }}>Loading profile...</p>;
+  if (loading) return <p style={{
+  textAlign: 'center',
+  fontSize: '1.5rem',
+  fontWeight: '600',
+  color: '#4A90E2',
+  marginTop: '2rem'
+}}>
+  Loading profile...
+</p>
+
 
   return (
     <div>

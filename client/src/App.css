@@ -2,7 +2,7 @@
 
 /* Root Variables for Theme Consistency */
 :root {
-  --primary-color: #3a86ff;
+  --primary-color: #297ece;
   --primary-hover-color: #265ecf;
   --text-color: #1f1f1f;
   --text-muted-color: #6b7280;
@@ -16,6 +16,7 @@
 body {
   font-family: var(--font-body);
   color: var(--text-color);
+  
 }
 
 /* Header */
@@ -31,6 +32,7 @@ body {
   top: 0;
   z-index: 1000;
   transition: box-shadow 0.25s ease, background-color 0.25s ease;
+   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .main-header:hover {
@@ -47,7 +49,7 @@ body {
   font-family: var(--font-heading);
   color: var(--primary-color);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   letter-spacing: -0.5px;
 }
 
@@ -225,4 +227,13 @@ body {
 /* For all other pages, add padding so content starts below the navbar */
 .main-content > *:not(.hero-section) {
     padding: 2rem;
+}
+.navbar{
+position: fixed; /* or sticky if you want it to scroll with content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5000; /* higher than hero/welcome content */
+  background-color: var(--surface-color); /* or semi-transparent */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }

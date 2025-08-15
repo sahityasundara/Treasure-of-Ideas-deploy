@@ -53,7 +53,16 @@ const MyIdeasPage = () => {
     }
   };
 
-  if (loading) return <p style={{ textAlign: 'center' }}>Loading your ideas...</p>;
+  if (loading) return <p style={{
+  textAlign: 'center',
+  fontSize: '1.5rem',
+  fontWeight: '600',
+  color: '#4A90E2',
+  marginTop: '2rem'
+}}>
+  Loading My ideas...
+</p>
+;
 
   return (
     <div>

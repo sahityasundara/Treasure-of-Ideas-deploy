@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #007bff;
+  --primary-color: #0856aa;
   --primary-hover-color: #0056b3;
   --success-color: #28a745;
   --danger-color: #dc3545;
@@ -62,6 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   /* NO 'animation' property. The transition handles all smooth movement. */
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
    border: 2px solid var(--border-color);
+   backdrop-filter: blur(8px);
 }
 
 .idea-card:hover:not(.expanded) {
@@ -162,11 +163,62 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.search-bar input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); }
-.filter-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.filter-btn { padding: 10px 20px; border: 1px solid var(--border-color); background-color: var(--surface-color); border-radius: 20px; cursor: pointer; font-weight: 600; color: var(--text-muted-color); transition: all 0.2s ease; }
-.filter-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
-.filter-btn.active { background-color: var(--primary-color); color: white; border-color: var(--primary-color); box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); }
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin: 30px 0 50px 0;
+}
+
+/* Enlarged search bar */
+.search-bar {
+  width: 100%;
+  max-width: 600px; /* Increased width */
+}
+.search-bar input {
+  width: 100%;
+  padding: 18px 25px; /* Bigger padding */
+  font-size: 18px; /* Larger text */
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+/* Enlarged and improved category buttons */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* More spacing */
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 14px 28px; /* Bigger buttons */
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  border-radius: 30px; /* More rounded */
+  cursor: pointer;
+  font-weight: 700; /* Slightly bolder */
+  font-size: 16px; /* Larger font */
+  color: var(--text-muted-color);
+  transition: all 0.2s ease, transform 0.2s;
+}
+.filter-btn:hover {
+  background-color: #e9ecef;
+  transform: translateY(-3px);
+}
+.filter-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
 
 /* === 6. FORMS & BUTTONS === */
 .form-container { background-color: var(--surface-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); max-width: 500px; margin: 40px auto; animation: fadeInContent 0.4s ease-out forwards; }

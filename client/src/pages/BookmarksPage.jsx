@@ -51,7 +51,16 @@ const BookmarksPage = () => {
     }
   };
 
-  if (loading) return <p>Loading your bookmarks...</p>;
+  if (loading) return    <p style={{
+  textAlign: 'center',
+  fontSize: '1.5rem',
+  fontWeight: '600',
+  color: '#205de0ff',
+  marginTop: '2rem'
+}}>
+  Loading your bookmarks...
+</p>
+;
 
   return (
     <div className="page-container"> 
