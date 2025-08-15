@@ -144,15 +144,8 @@ const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas?${pa
       {error && <p style={{ color: 'var(--danger-color)', textAlign: 'center' }}>{error}</p>}
       
       {loading ? (
-       <p style={{
-  textAlign: 'center',
-  fontSize: '1.5rem',
-  fontWeight: '600',
-  color: '#4A90E2',
-  marginTop: '2rem'
-}}>
-  Loading ideas...
-</p>
+       <p className="loading-text">Loading ideas...</p>
+
 
       ) : (
         <>

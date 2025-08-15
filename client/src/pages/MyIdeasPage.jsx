@@ -53,20 +53,12 @@ const MyIdeasPage = () => {
     }
   };
 
-  if (loading) return <p style={{
-  textAlign: 'center',
-  fontSize: '1.5rem',
-  fontWeight: '600',
-  color: '#4A90E2',
-  marginTop: '2rem'
-}}>
-  Loading My ideas...
-</p>
-;
+  if (loading) return <p className="loading-text">Loading my ideas...</p> ;
 
   return (
     <div>
-      <h1 style={{ textAlign: 'center', margin: '20px 0 40px 0' }}>My Shared Ideas</h1>
+      <h1 className="page-title">My Shared Ideas</h1>
+
       
       {error && <p style={{ color: 'var(--danger-color)', textAlign: 'center' }}>{error}</p>}
       
@@ -83,7 +75,14 @@ const MyIdeasPage = () => {
             />
           ))
         ) : (
-          !error && <p style={{ textAlign: 'center' }}>You haven't shared any ideas yet. Why not share one now?</p>
+          !error && <div className="empty-message-wrapper">
+  <p className="empty-message">
+    You haven't shared any ideas yet. Why not share one now?
+  </p>
+</div>
+
+
+
         )}
       </div>
     </div>

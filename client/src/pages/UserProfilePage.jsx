@@ -66,20 +66,13 @@ const UserProfilePage = () => {
     }
   };
 
-  if (loading) return <p style={{
-  textAlign: 'center',
-  fontSize: '1.5rem',
-  fontWeight: '600',
-  color: '#4A90E2',
-  marginTop: '2rem'
-}}>
-  Loading profile...
-</p>
+  if (loading) return<p className="loading-text">Loading Profile...</p>
+
 
 
   return (
     <div>
-      <h1 style={{ textAlign: 'center', margin: '20px 0 40px 0' }}>
+       <h1 className="page-title">
         Ideas Shared by {userName}
       </h1>
       

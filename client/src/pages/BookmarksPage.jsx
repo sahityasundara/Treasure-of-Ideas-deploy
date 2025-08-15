@@ -51,20 +51,13 @@ const BookmarksPage = () => {
     }
   };
 
-  if (loading) return    <p style={{
-  textAlign: 'center',
-  fontSize: '1.5rem',
-  fontWeight: '600',
-  color: '#205de0ff',
-  marginTop: '2rem'
-}}>
-  Loading your bookmarks...
-</p>
+  if (loading) return   <p className="loading-text">Loading your bookmarks...</p>
+
 ;
 
   return (
     <div className="page-container"> 
-      <h1>My Bookmarked Ideas</h1>
+      <h1 className="page-title">My Bookmarked Ideas</h1>
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
       
       {bookmarks.length > 0 ? (
@@ -79,7 +72,11 @@ const BookmarksPage = () => {
           ))}
         </div>
       ) : (
-        <p style={{ textAlign: 'center' }}>You haven't bookmarked any ideas yet. Go find some!</p>
+        <div className="empty-message-wrapper">
+  <p className="empty-message">
+    You haven't bookmarked any ideas yet. Go find some!
+  </p>
+</div>
       )}
     </div>
   );
