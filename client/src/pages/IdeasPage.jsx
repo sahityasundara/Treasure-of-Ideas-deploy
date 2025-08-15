@@ -52,7 +52,8 @@ const IdeasPage = () => {
         }
         params.append('page', page);
 
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}${params.toString()}`);
+       // This is the CORRECT line
+const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas?${params.toString()}`);
 
         if (data && Array.isArray(data.ideas)) {
           // If it's a new search (page 1), replace all ideas. Otherwise, append the new ones.
