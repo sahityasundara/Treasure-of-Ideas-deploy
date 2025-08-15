@@ -1,0 +1,228 @@
+/* client/src/App.css */
+
+/* Root Variables for Theme Consistency */
+:root {
+  --primary-color: #3a86ff;
+  --primary-hover-color: #265ecf;
+  --text-color: #1f1f1f;
+  --text-muted-color: #6b7280;
+  --border-color: #e5e7eb;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --header-blur: saturate(180%) blur(12px);
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-color);
+}
+
+/* Header */
+.main-header {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: var(--header-blur);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.main-header:hover {
+  box-shadow: var(--box-shadow);
+}
+
+/* Logo */
+.logo {
+  text-decoration: none;
+}
+
+.logo h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-muted-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 5px 0;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link:hover {
+  color: var(--text-color);
+}
+
+/* Button-style Links */
+.nav-link-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.nav-link-button:hover {
+  background-color: var(--primary-hover-color);
+  transform: translateY(-1px);
+}
+
+.nav-link-button::after {
+  display: none;
+}
+
+/* User Name */
+.user-name {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-left: 2px solid var(--border-color);
+  padding-left: 1.5rem;
+}
+
+/* Main Content */
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .main-nav {
+    gap: 1rem;
+  }
+  
+  .logo h1 {
+    font-size: 1.25rem;
+  }
+}
+.main-header {
+  /* Default state: solid white background */
+  background-color: var(--surface-color);
+  box-shadow: var(--box-shadow);
+  
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* --- THIS IS THE KEY --- */
+  /* Smoothly transition the background color and box-shadow */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- TRANSPARENT STATE (Only active on Welcome Page at the top) --- */
+.main-header.transparent {
+  background-color: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* A subtle line */
+}
+/* When transparent, links should be white */
+.main-header.transparent .nav-link,
+.main-header.transparent .user-name {
+  color: #f0f0f0;
+}
+.main-header.transparent .logo h1 {
+  color: #ffffff;
+}
+.main-header.transparent .nav-link:hover,
+.main-header.transparent .logo h1:hover {
+  color: #ffffff;
+}
+.main-header.transparent .nav-link-button {
+  border: 1px solid #ffffff;
+}
+
+/* --- GENERAL NAV STYLES --- */
+.logo { text-decoration: none; }
+.logo h1 {
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 700;
+  transition: color 0.4s ease;
+}
+
+.main-nav { display: flex; align-items: center; gap: 1.5rem; }
+.nav-link {
+  color: var(--text-muted-color);
+  font-weight: 600;
+  transition: color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 5px 0;
+}
+.nav-link:hover { color: var(--primary-color); }
+
+.nav-link-button {
+  background-color: var(--primary-color);
+  color: white !important; /* Important to override transparent state */
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+  border: 1px solid transparent;
+}
+.nav-link-button:hover {
+  background-color: var(--primary-hover-color);
+  color: white !important;
+}
+
+.user-name {
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.4s ease;
+}
+
+.main-content {
+  /* This ensures content on the Welcome Page starts *behind* the navbar */
+  padding-top: 0; 
+}
+/* For all other pages, add padding so content starts below the navbar */
+.main-content > *:not(.hero-section) {
+    padding: 2rem;
+}
