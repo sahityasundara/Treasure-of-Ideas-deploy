@@ -31,11 +31,11 @@ const RegisterPage = () => {
     setLoading(true);
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks`,
-        { name, email, password },
-        config
-      );
+        const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/users/register`,
+      { name, email, password },
+      config
+    );
 
       // Save user info to local storage
       localStorage.setItem('userInfo', JSON.stringify(data));
