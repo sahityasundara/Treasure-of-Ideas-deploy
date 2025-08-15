@@ -1,6 +1,6 @@
-// client/src/components/CreateIdeaForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import './CreateIdeaForm.css'; // ✅ Import styles
 
 const CreateIdeaForm = ({ onIdeaAdded }) => {
   const [title, setTitle] = useState('');
@@ -15,9 +15,8 @@ const CreateIdeaForm = ({ onIdeaAdded }) => {
     setError('');
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
     if (!userInfo || !userInfo.token) {
-      setError("You must be logged in to post an idea.");
+      setError('You must be logged in to post an idea.');
       return;
     }
 
@@ -37,57 +36,86 @@ const CreateIdeaForm = ({ onIdeaAdded }) => {
     };
 
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/ideas`, newIdea, config);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/ideas`,
+        newIdea,
+        config
+      );
       onIdeaAdded(data);
       setTitle('');
       setDescription('');
       setTags('');
       setDifficulty('Beginner');
+      setCategory('Software');
     } catch (err) {
-      setError("Failed to submit idea. Please try again.");
-      console.error("Submit Idea Error:", err); // Log the real error to the console
+      setError('Failed to submit idea. Please try again.');
+      console.error('Submit Idea Error:', err);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Submit a New Idea</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        {/* ... Your form-group divs for inputs, textarea, select ... */}
-         <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        </div>
-        <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
-        </div>
-        <div className="form-group">
-            <label htmlFor="tags">Tags (comma-separated)</label>
-            <input type="text" id="tags" value={tags} onChange={(e) => setTags(e.target.value)} required />
-        </div>
-        <div className="form-group">
-            <label htmlFor="difficulty">Difficulty</label>
-            <select id="difficulty" value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+    <div className="create-idea-container">
+      <form className="create-idea-form" onSubmit={handleSubmit}>
+        <h2>💡 Share Your Project Idea</h2>
+        <p className="form-subtitle">
+          Inspire others with your creativity! Fill out the details below to submit your idea.
+        </p>
+
+        {error && <p className="error-text">{error}</p>}
+
+        <label>Title</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter a short, catchy title"
+          required
+        />
+
+        <label>Description</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Describe your project idea in detail..."
+          required
+        ></textarea>
+
+        <label>Tags (comma-separated)</label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="e.g., AI, Web Development, Blockchain"
+          required
+        />
+
+        <div className="form-row">
+          <div>
+            <label>Difficulty</label>
+            <select
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
             </select>
+          </div>
+
+          <div>
+            <label>Category</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="Software">Software</option>
+              <option value="Hardware">Hardware</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
         </div>
-          <div className="form-group">
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="Software">Software</option>
-            <option value="Hardware">Hardware</option>
-            <option value="Both">Both</option>
-          </select>
-        </div>
-        <button type="submit" className="submit-btn">Submit Idea</button>
+
+        <button type="submit" className="submit-btn">🚀 Submit Idea</button>
       </form>
     </div>
   );
