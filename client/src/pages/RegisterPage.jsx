@@ -32,7 +32,7 @@ const RegisterPage = () => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
       const { data } = await axios.post(
-        '${import.meta.env.VITE_API_URL}/api/users/register',
+        `${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks`,
         { name, email, password },
         config
       );

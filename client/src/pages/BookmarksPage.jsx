@@ -14,7 +14,7 @@ const BookmarksPage = () => {
       console.log("Fetching bookmarked ideas...");
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        const { data } = await axios.get('${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks', config);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks`, config);
         setBookmarks(data);
         console.log("Successfully fetched bookmarks:", data);
       } catch (err) {

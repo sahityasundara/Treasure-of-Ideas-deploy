@@ -37,7 +37,7 @@ const CreateIdeaForm = ({ onIdeaAdded }) => {
     };
 
     try {
-      const { data } = await axios.post('${import.meta.env.VITE_API_URL}/api/ideas', newIdea, config);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/ideas`, newIdea, config);
       onIdeaAdded(data);
       setTitle('');
       setDescription('');

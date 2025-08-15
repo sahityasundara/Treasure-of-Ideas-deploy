@@ -24,11 +24,12 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
-      const { data } = await axios.post(
-        '${import.meta.env.VITE_API_URL}/api/users/login',
-        { email, password },
-        config
-      );
+     // CORRECT - uses backticks
+const { data } = await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/users/login`, // <-- FIXED
+  { email, password },
+  config
+);
 
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
