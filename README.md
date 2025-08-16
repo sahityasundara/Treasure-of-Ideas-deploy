@@ -2,7 +2,7 @@
 
 Welcome to Treasure of Ideas, a dynamic and collaborative web application designed for students, developers, and creators to share, discover, and manage project ideas. Built with the MERN stack, this platform provides a seamless and feature-rich experience from idea submission to discovery and collaboration.
 
-**Live Demo URL:** [**https://your-project-name.netlify.app/**](https://treasure-of-ideas.netlify.app/)  
+**Live Demo URL:** [**https://treasure-of-ideas.netlify.app/**](https://treasure-of-ideas.netlify.app/)  
 
 ![Treasure of Ideas Screenshot](https://github.com/sahityasundara/Treasure-of-Ideas-deploy/raw/main/assets/TreasureofIdeasScreenshot.png)
 *(The main ideas page showing the responsive card layout, search, and filtering capabilities.)*
