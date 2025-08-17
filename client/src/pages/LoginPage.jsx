@@ -73,7 +73,7 @@ const { data } = await axios.post(
           </button>
         </form>
         <p style={{ marginTop: '1rem' }}>
-          New to Treasure of Ideas ? <Link to="/register">Create an account</Link>
+          New to <strong>Treasure of Ideas</strong>? <Link to="/register">Create an account</Link>
         </p>
       </div>
     </>
