@@ -310,3 +310,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0; /* remove margin so flex works */
   font-family: 'Segoe UI', sans-serif;
 }
+
+.ai-result-card {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: #f8f9fa;
+  animation: fadeIn 0.5s ease-out;
+}

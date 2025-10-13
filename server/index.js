@@ -1,16 +1,21 @@
-// server/index.js - FINAL VERSION
+// server/index.js - GUARANTEED CORRECT VERSION
 
+// 1. Import and configure dotenv AT THE VERY TOP.
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+// 2. Import all other modules AFTER dotenv is configured.
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import ideaRoutes from './routes/ideaRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-
-// Load environment variables
-dotenv.config();
+import aiRoutes from './routes/aiRoutes.js';
 
 const app = express();
+
+// 3. Now it is safe to read from process.env
 const PORT = process.env.PORT || 5001;
 
 // --- Middlewares ---
@@ -19,11 +24,13 @@ app.use(express.json());
 
 // --- API Routes ---
 app.use('/api/ideas', ideaRoutes);
-app.use('/api/users', userRoutes); 
+app.use('/api/users', userRoutes);
+app.use('/api/ai', aiRoutes);
 
 // --- Main Function to Start Server ---
 const startServer = async () => {
   try {
+    // This will now correctly read the MONGO_URI
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB connected successfully");
 

@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // 1. Import useEffect
 import axios from 'axios';
-import './CreateIdeaForm.css'; // ✅ Import styles
+import './CreateIdeaForm.css'; // ✅ Your styles are imported
 
-const CreateIdeaForm = ({ onIdeaAdded }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [tags, setTags] = useState('');
-  const [difficulty, setDifficulty] = useState('Beginner');
+// 2. Accept the new `initialData` prop. Default it to null if not provided.
+const CreateIdeaForm = ({ onIdeaAdded, initialData = null }) => {
+  
+  // 3. Use the initialData to set the default state, or use empty strings.
+  //    This is the core logic for the pre-fill feature.
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [description, setDescription] = useState(initialData?.description || '');
+  const [tags, setTags] = useState(initialData?.tags?.join(', ') || '');
+  const [difficulty, setDifficulty] = useState(initialData?.difficulty || 'Beginner');
+  const [category, setCategory] = useState(initialData?.category || 'Software');
   const [error, setError] = useState('');
-  const [category, setCategory] = useState('Software');
+
+  // 4. (Optional but good UX) Add a useEffect to update the form if the user generates a new idea
+  //    while already on the page (this is an advanced case, but good practice).
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title || '');
+      setDescription(initialData.description || '');
+      setTags(initialData.tags?.join(', ') || '');
+      setDifficulty(initialData.difficulty || 'Beginner');
+      setCategory(initialData.category || 'Software');
+    }
+  }, [initialData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +57,9 @@ const CreateIdeaForm = ({ onIdeaAdded }) => {
         newIdea,
         config
       );
-      onIdeaAdded(data);
+      onIdeaAdded(data); // This function (from ShareIdeaPage) will navigate the user away
+      
+      // Clearing the form is still good practice
       setTitle('');
       setDescription('');
       setTags('');
@@ -58,7 +76,7 @@ const CreateIdeaForm = ({ onIdeaAdded }) => {
       <form className="create-idea-form" onSubmit={handleSubmit}>
         <h2>💡 Share Your Project Idea</h2>
         <p className="form-subtitle">
-          Inspire others with your creativity! Fill out the details below to submit your idea.
+          {initialData ? 'Review and submit your AI-generated idea!' : 'Inspire others with your creativity!'}
         </p>
 
         {error && <p className="error-text">{error}</p>}

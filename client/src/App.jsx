@@ -1,6 +1,6 @@
 // client/src/App.jsx - FINAL VERSION WITH TRANSPARENT NAVBAR
 import React, { useState, useEffect } from 'react';
-// 1. Make sure useLocation is imported here
+import AIGeneratorPage from './pages/AIGeneratorPage'; // ✅ Added import
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
 // Import all your pages and components
@@ -13,7 +13,7 @@ import BookmarksPage from './pages/BookmarksPage';
 import PrivateRoute from './components/PrivateRoute';
 import { useScrollPosition } from './hooks/useScrollPosition'; // Make sure this file exists
 import UserProfilePage from './pages/UserProfilePage';
-import MyIdeasPage from './pages/MyIdeasPage'; 
+import MyIdeasPage from './pages/MyIdeasPage';
 import './App.css';
 
 // 2. Define the helper component outside the main App component
@@ -60,8 +60,12 @@ const AppRouter = () => {
           {userInfo ? (
             <>
               <Link to="/share" className="nav-link">Share Idea</Link>
-                <Link to="/my-ideas" className="nav-link">My Ideas</Link>
+              <Link to="/my-ideas" className="nav-link">My Ideas</Link>
               <Link to="/bookmarks" className="nav-link">My Bookmarks</Link>
+
+              {/* ✅ Added AI Generator nav link */}
+              <Link to="/generate-idea" className="nav-link">AI Generator</Link>
+
               <span className="user-name">Hello, {userInfo.name}</span>
               <LogoutButton />
             </>
@@ -73,6 +77,7 @@ const AppRouter = () => {
           )}
         </nav>
       </header>
+
       <main className="main-content">
         <Routes>
           <Route path="/" element={<WelcomePage />} />
@@ -81,8 +86,11 @@ const AppRouter = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/share" element={<PrivateRoute><ShareIdeaPage /></PrivateRoute>} />
           <Route path="/bookmarks" element={<PrivateRoute><BookmarksPage /></PrivateRoute>} />
-            <Route path="/my-ideas" element={<PrivateRoute><MyIdeasPage /></PrivateRoute>} />
+          <Route path="/my-ideas" element={<PrivateRoute><MyIdeasPage /></PrivateRoute>} />
           <Route path="/profile/:userId" element={<UserProfilePage />} />
+
+          {/* ✅ Added AI Generator route */}
+          <Route path="/generate-idea" element={<PrivateRoute><AIGeneratorPage /></PrivateRoute>} />
         </Routes>
       </main>
     </div>
