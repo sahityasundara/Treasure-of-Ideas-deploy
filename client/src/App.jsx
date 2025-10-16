@@ -1,6 +1,6 @@
 // client/src/App.jsx - FINAL VERSION WITH TRANSPARENT NAVBAR
 import React, { useState, useEffect } from 'react';
-import AIGeneratorPage from './pages/AIGeneratorPage'; // ✅ Added import
+
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
 // Import all your pages and components
@@ -64,7 +64,7 @@ const AppRouter = () => {
               <Link to="/bookmarks" className="nav-link">My Bookmarks</Link>
 
               {/* ✅ Added AI Generator nav link */}
-              <Link to="/generate-idea" className="nav-link">AI Generator</Link>
+            
 
               <span className="user-name">Hello, {userInfo.name}</span>
               <LogoutButton />
@@ -90,7 +90,7 @@ const AppRouter = () => {
           <Route path="/profile/:userId" element={<UserProfilePage />} />
 
           {/* ✅ Added AI Generator route */}
-          <Route path="/generate-idea" element={<PrivateRoute><AIGeneratorPage /></PrivateRoute>} />
+         c
         </Routes>
       </main>
     </div>

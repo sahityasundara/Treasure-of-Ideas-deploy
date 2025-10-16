@@ -11,7 +11,6 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import ideaRoutes from './routes/ideaRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import aiRoutes from './routes/aiRoutes.js';
 
 const app = express();
 
@@ -25,7 +24,7 @@ app.use(express.json());
 // --- API Routes ---
 app.use('/api/ideas', ideaRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/ai', aiRoutes);
+
 
 // --- Main Function to Start Server ---
 const startServer = async () => {
