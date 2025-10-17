@@ -6,18 +6,20 @@ export const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
+    // Function to update the state with the window's scroll position
     const handleScroll = () => {
       setScrollPosition(window.pageYOffset);
     };
 
-    // Add the scroll event listener when the component mounts
+    // Add a 'scroll' event listener to the window when the component mounts
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup function to remove the event listener when the component unmounts
+    // This is a "cleanup" function. React runs this when the component
+    // unmounts to prevent memory leaks.
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, []); // The empty array means this effect only runs once
 
   return scrollPosition;
 };

@@ -1,35 +1,46 @@
-// server/index.js - GUARANTEED CORRECT VERSION
-
-// 1. Import and configure dotenv AT THE VERY TOP.
+// server/index.js - GUARANTEED CORRECT VERSION WITH DEBUGGING
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-// 2. Import all other modules AFTER dotenv is configured.
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import ideaRoutes from './routes/ideaRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 
 const app = express();
-
-// 3. Now it is safe to read from process.env
 const PORT = process.env.PORT || 5001;
 
 // --- Middlewares ---
 app.use(cors());
 app.use(express.json());
 
+// --- 1. DEBUGGING MIDDLEWARE ---
+// This will run for EVERY request and log it to your terminal.
+app.use((req, res, next) => {
+  console.log('--- INCOMING REQUEST ---');
+  console.log('Time:', new Date().toLocaleTimeString());
+  console.log('Method:', req.method);
+  console.log('URL:', req.originalUrl);
+  console.log('------------------------');
+  next();
+});
+
+// --- 2. DEBUGGING TEST ROUTE ---
+// A simple route to confirm the server is responsive.
+app.get('/test', (req, res) => {
+  res.send('Server is running and test route is working!');
+});
+
 // --- API Routes ---
 app.use('/api/ideas', ideaRoutes);
 app.use('/api/users', userRoutes);
-
+app.use('/api/ai', aiRoutes);
 
 // --- Main Function to Start Server ---
 const startServer = async () => {
   try {
-    // This will now correctly read the MONGO_URI
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB connected successfully");
 
@@ -43,5 +54,4 @@ const startServer = async () => {
   }
 };
 
-// Call the function to start everything
 startServer();
