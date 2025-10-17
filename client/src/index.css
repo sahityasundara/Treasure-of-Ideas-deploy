@@ -273,3 +273,36 @@ h1, h2, h3 { font-weight: 600; }
   color: #0056b3; /* Darker blue on hover */
   text-decoration: underline;
 }
+.share-link {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.no-ideas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* horizontal center */
+  justify-content: center; /* vertical center if needed */
+  text-align: center;
+  margin: 40px 0;
+  gap: 10px; /* space between text and link */
+}
+
+.no-ideas-container .share-link {
+  padding: 10px 25px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.no-ideas-container .share-link:hover {
+  background-color: #5a4ab6; /* slightly darker shade */
+  transform: translateY(-2px);
+}
+

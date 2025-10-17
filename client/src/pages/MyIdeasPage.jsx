@@ -9,13 +9,10 @@ const MyIdeasPage = () => {
   const [myIdeas, setMyIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  // --- NEW: Expanded card state ---
   const [expandedCardId, setExpandedCardId] = useState(null);
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  // --- Fetch user's own ideas ---
   useEffect(() => {
     const fetchMyIdeas = async () => {
       setLoading(true);
@@ -26,11 +23,8 @@ const MyIdeasPage = () => {
           `${import.meta.env.VITE_API_URL}/api/ideas/myideas`,
           config
         );
-        if (Array.isArray(data)) {
-          setMyIdeas(data);
-        } else {
-          setMyIdeas([]);
-        }
+        if (Array.isArray(data)) setMyIdeas(data);
+        else setMyIdeas([]);
       } catch (err) {
         console.error('Fetch MyIdeas Error:', err);
         setError('Failed to fetch your ideas.');
@@ -40,14 +34,10 @@ const MyIdeasPage = () => {
       }
     };
 
-    if (userInfo?.token) {
-      fetchMyIdeas();
-    } else {
-      setLoading(false);
-    }
+    if (userInfo?.token) fetchMyIdeas();
+    else setLoading(false);
   }, [userInfo?.token]);
 
-  // --- Bookmark handler (optional) ---
   const handleBookmark = async (idToBookmark) => {
     if (!userInfo) return;
     try {
@@ -66,29 +56,20 @@ const MyIdeasPage = () => {
     }
   };
 
-  // --- Delete handler ---
   const handleDelete = async (idToDelete) => {
-    if (
-      window.confirm('Are you sure you want to permanently delete this idea?')
-    ) {
-      if (!userInfo) return;
-      try {
-        const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        await axios.delete(
-          `${import.meta.env.VITE_API_URL}/api/ideas/${idToDelete}`,
-          config
-        );
-        // Remove from state and close expanded card if open
-        setMyIdeas((prev) => prev.filter((idea) => idea._id !== idToDelete));
-        setExpandedCardId(null);
-      } catch (err) {
-        console.error('Delete Error:', err);
-        setError('Failed to delete idea.');
-      }
+    if (!window.confirm('Are you sure you want to permanently delete this idea?')) return;
+    if (!userInfo) return;
+    try {
+      const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/ideas/${idToDelete}`, config);
+      setMyIdeas((prev) => prev.filter((idea) => idea._id !== idToDelete));
+      setExpandedCardId(null);
+    } catch (err) {
+      console.error('Delete Error:', err);
+      setError('Failed to delete idea.');
     }
   };
 
-  // --- If user not logged in ---
   if (!userInfo) {
     return (
       <div className="login-prompt">
@@ -101,14 +82,10 @@ const MyIdeasPage = () => {
     );
   }
 
-  // --- Loading state ---
-  if (loading) {
-    return <p style={{ textAlign: 'center' }}>Loading your ideas...</p>;
-  }
+  if (loading) return <p style={{ textAlign: 'center' }}>Loading your ideas...</p>;
 
   return (
     <div>
-      {/* --- Overlay behind expanded card --- */}
       {expandedCardId && (
         <div className="overlay" onClick={() => setExpandedCardId(null)}></div>
       )}
@@ -116,9 +93,9 @@ const MyIdeasPage = () => {
       <h1 style={{ textAlign: 'center', margin: '20px 0' }}>My Submitted Ideas</h1>
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
-      <div className="ideas-container">
-        {myIdeas.length > 0 ? (
-          myIdeas.map((idea) => (
+      {myIdeas.length > 0 ? (
+        <div className="ideas-container">
+          {myIdeas.map((idea) => (
             <IdeaCard
               key={idea._id}
               idea={idea}
@@ -128,14 +105,16 @@ const MyIdeasPage = () => {
               onBookmark={handleBookmark}
               onDelete={handleDelete}
             />
-          ))
-        ) : (
-          <p style={{ textAlign: 'center' }}>
-            You haven't shared any ideas yet.{' '}
-            <Link to="/share">Why not share one now?</Link>
-          </p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="no-ideas-container">
+          <p>You haven't shared any ideas yet.</p>
+          <Link to="/share" className="share-link">
+            Why not share one now?
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

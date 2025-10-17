@@ -9,13 +9,10 @@ const BookmarksPage = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  // --- NEW: Add expanded card state for fullscreen card view ---
   const [expandedCardId, setExpandedCardId] = useState(null);
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  // Fetch bookmarked ideas on mount
   useEffect(() => {
     if (userInfo?.token) {
       const fetchBookmarks = async () => {
@@ -27,11 +24,7 @@ const BookmarksPage = () => {
             `${import.meta.env.VITE_API_URL}/api/ideas/mybookmarks`,
             config
           );
-          if (Array.isArray(data)) {
-            setBookmarks(data);
-          } else {
-            setBookmarks([]);
-          }
+          setBookmarks(Array.isArray(data) ? data : []);
         } catch (err) {
           console.error('Fetch Bookmarks Error:', err);
           setError('Failed to fetch bookmarks.');
@@ -46,7 +39,6 @@ const BookmarksPage = () => {
     }
   }, [userInfo?.token]);
 
-  // Handle removing a bookmark
   const handleRemoveBookmark = async (idToRemove) => {
     if (!userInfo?.token) return;
     try {
@@ -63,21 +55,18 @@ const BookmarksPage = () => {
     }
   };
 
-  // --- Clean conditional render logic ---
   const renderContent = () => {
-    if (loading) {
-      return <p style={{ textAlign: 'center' }}>Loading your bookmarks...</p>;
-    }
-
-    if (error) {
-      return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
-    }
+    if (loading) return <p style={{ textAlign: 'center' }}>Loading your bookmarks...</p>;
+    if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
 
     if (bookmarks.length === 0) {
       return (
-        <p style={{ textAlign: 'center' }}>
-          You haven't bookmarked any ideas yet. Go find some!
-        </p>
+        <div className="no-ideas-container">
+          <p>You haven't bookmarked any ideas yet.</p>
+          <Link to="/ideas" className="share-link">
+            Browse Ideas
+          </Link>
+        </div>
       );
     }
 
@@ -97,7 +86,6 @@ const BookmarksPage = () => {
     );
   };
 
-  // --- If user isn't logged in ---
   if (!userInfo) {
     return (
       <div className="login-prompt">
@@ -112,15 +100,11 @@ const BookmarksPage = () => {
 
   return (
     <div>
-      {/* --- Overlay for expanded card --- */}
       {expandedCardId && (
         <div className="overlay" onClick={() => setExpandedCardId(null)}></div>
       )}
 
-      <h1 style={{ textAlign: 'center', margin: '20px 0' }}>
-        My Bookmarked Ideas
-      </h1>
-
+      <h1 style={{ textAlign: 'center', margin: '20px 0' }}>My Bookmarked Ideas</h1>
       {renderContent()}
     </div>
   );
