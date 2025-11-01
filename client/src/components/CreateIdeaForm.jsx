@@ -22,12 +22,50 @@ const CreateIdeaForm = ({ onIdeaAdded, initialData = null }) => {
     }
   }, [initialData]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    // ... (rest of your handleSubmit logic is perfect and does not need to change)
+  // The complete and correct handleSubmit function
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
+
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  if (!userInfo || !userInfo.token) {
+    setError('You must be logged in to post an idea.');
+    setLoading(false); // Stop loading on error
+    return;
+  }
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
   };
+
+  const newIdea = {
+    title,
+    description,
+    // This correctly handles both manually typed tags and AI-generated tags
+    tags: Array.isArray(tags) ? tags : tags.split(',').map(tag => tag.trim()),
+    difficulty,
+    category,
+  };
+
+  try {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/ideas`,
+      newIdea,
+      config
+    );
+    onIdeaAdded(data); // This will navigate the user away
+  } catch (err) {
+    setError('Failed to submit idea. Please try again.');
+    console.error('Submit Idea Error:', err);
+  } finally {
+    setLoading(false); // Make sure to stop loading in all cases
+  }
+};
 
   return (
     <div className="create-idea-container">
