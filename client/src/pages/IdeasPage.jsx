@@ -172,7 +172,7 @@ const IdeasPage = () => {
       {error && <p style={{ color: 'var(--danger-color)', textAlign: 'center' }}>{error}</p>}
 
       {loading ? (
-        <p className="loading-text" style={{ textAlign: 'center' }}>Loading ideas...</p>
+        <p className="loading-text" style={{ textAlign: 'center', color: '#d4c709ff' }}>Loading ideas...</p>
       ) : (
         <>
           <div className="ideas-container">

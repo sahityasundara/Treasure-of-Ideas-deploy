@@ -34,7 +34,7 @@ const UserProfilePage = () => {
     fetchUserIdeas();
   }, [userId]);
 
-  if (loading) return <p style={{ textAlign: 'center' }}>Loading user's ideas...</p>;
+  if (loading) return <p style={{ textAlign: 'center', color: '#d4c709ff' }}>Loading user's ideas...</p>;
 
   return (
     <div>

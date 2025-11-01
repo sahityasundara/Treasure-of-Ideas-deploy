@@ -142,7 +142,21 @@ h1, h2, h3 { font-weight: 600; }
 }
 .card-actions button:hover { background: #e9ecef; color: var(--text-color); }
 .bookmark-btn.bookmarked { color: var(--warning-color); }
-.delete-btn:hover { color: var(--danger-color); }
+.delete-btn {
+  background-color: #e63946; /* red shade */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c1121f; /* darker red on hover */
+}
+
+
 
 /* --- 7. FORMS & CONTROLS --- */
 .controls-container { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 40px; }

@@ -56,7 +56,7 @@ const BookmarksPage = () => {
   };
 
   const renderContent = () => {
-    if (loading) return <p style={{ textAlign: 'center' }}>Loading your bookmarks...</p>;
+    if (loading) return <p style={{ textAlign: 'center' , color: '#d4c709ff'}}>Loading your bookmarks...</p>;
     if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
 
     if (bookmarks.length === 0) {
